@@ -1,0 +1,13 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+body {
+    background-color: rgb(165, 171, 160);
+}
+.ssbox {
+    float: right;
+}
+.dlbox {
+    float: right;
+}
