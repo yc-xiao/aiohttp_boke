@@ -1,7 +1,6 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from aiohttp.web import middleware
-from functools import wraps
 from setting import ENGINE_PATH
 import logging
 logging.basicConfig(level=logging.INFO)

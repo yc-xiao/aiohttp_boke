@@ -1,9 +1,9 @@
 use boke;
-/*
+/**/
 drop table `users`;
 drop table `articles`;
 drop table `comments`;
-*/
+
 CREATE TABLE IF NOT EXISTS `users`(
    `user_id` VARCHAR(32) NOT NULL,
    `name` VARCHAR(20) NOT NULL,

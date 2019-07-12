@@ -1,11 +1,8 @@
+from aiohttp_jinja2 import render_template
 from aiohttp import web
-import asyncio
-import pdb
 
 from model import UserModel, get_unit_id
-from aiohttp_jinja2 import render_template
-
-routes = web.RouteTableDef()
+from .base import routes
 
 @routes.get('/')
 async def index(request):
@@ -56,9 +53,6 @@ class User(web.View):
 class User(web.View):
     async def get(self):
         userid = self.request.match_info.get('id')
-        session = self.request['session']
-        results = session.query(UserModel).filter(UserModel.userid==userid).one()
-
         return web.json_response(results.toString())
 
     async def delete(self):

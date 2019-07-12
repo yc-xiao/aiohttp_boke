@@ -10,7 +10,7 @@
 目录设计
 * model.py
 * route.py
-* views.py
+* handlers.py
 * configs
 * status
  * css

@@ -1,7 +1,6 @@
 from others import logging, log_handler, _on_startup, _on_shutdown
-from route import set_routes
+from routes import set_routes
 from setting import config
-
 from aiohttp import web
 import asyncio
 
