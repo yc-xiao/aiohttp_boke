@@ -1,11 +1,16 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime, Text
-import uuid
+import uuid, hashlib
+
+from setting import password_s
 
 Base = declarative_base()
 
 def get_unit_id():
     return uuid.uuid4().hex
+
+def md5(password):
+    return hashlib.md5("".join([password, password_s]).encode()).hexdigest()
 
 class UserModel(Base):
     __tablename__ = 'users'

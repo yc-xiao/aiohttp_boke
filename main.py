@@ -11,7 +11,7 @@ def init():
     set_routes(app)
     app.on_startup.append(_on_startup)
     app.on_shutdown.append(_on_shutdown)
-    web.run_app(app, **config)
+    web.run_app(app, **config, access_log=None)
     #return app
 
 async def main():
@@ -23,6 +23,7 @@ async def main():
 
 if __name__ == "__main__":
     init()
+
 
     '''
     loop = asyncio.get_event_loop()

@@ -1,24 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/base.css">
+    <title>注册</title>
+    <link rel="stylesheet" href="css/register.css">
+    <script src="js/jquery-2.2.4.js"></script>
+    <script src="js/base.js"></script>
 </head>
+
 <body>
-    <header>
-        <a href="index.html">BOKE</a>
-        <div class="grbox">
-            <a href="login.html">登陆</a>
-            <a href="register.html">注册</a>
-        </div>
-    </header>
-    <form class="" action="register" method="post">
-        用户名 <input type="text" name="name" placeholder="姓名"><br>
-        密码 <input type="password" name="name" placeholder="姓名"><br>
-        <input type="submit" name="" value="注册">
-    </form>
+    <header></header>
+    <div class="dbox">
+        <!-- onsubmit 在form提交之前,实际的请求由ajax处理 -->
+        <form onsubmit="return false" method="post">
+            <table>
+                <tr>
+                    <td>用户名:</td>
+                    <td><input type="text" placeholder="用户名" name="name" value=""></td>
+                </tr>
+                <tr>
+                    <td>密码:</td>
+                    <td><input type="password" placeholder="密码" name="password" maxlength="16" value=""></td>
+                </tr>
+                <tr>
+                    <td>确认密码:</td>
+                    <td><input type="password" placeholder="确认密码"
+                        name="npassword" maxlength="16" value=""></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="注册" class="btn" id="register"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
 </body>
+<script src="js/register.js" charset="utf-8"></script>
 </html>

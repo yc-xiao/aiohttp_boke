@@ -1,14 +1,15 @@
 use boke;
-/**/
+/*
 drop table `users`;
 drop table `articles`;
-drop table `comments`;
+drop table `comments`;*/
 
 CREATE TABLE IF NOT EXISTS `users`(
    `user_id` VARCHAR(32) NOT NULL,
    `name` VARCHAR(20) NOT NULL,
    `password` VARCHAR(32) NOT NULL,
-   PRIMARY KEY ( `user_id` )
+   PRIMARY KEY ( `user_id` ),
+   UNIQUE (`name`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `articles`(

@@ -29,18 +29,3 @@ def set_route(app):
                     app.router.add_route(method, path, c.go)
     mod = import_module('handlers')
     add_handler(mod)
-
-
-"""
-def get_route(app):
-    mod = __import__('handlers', locals())
-    for c in dir(mod):
-        c = getattr(mod, c)
-        if type(c) is not type:
-            continue
-        if c is BaseRequest or not issubclass(c, BaseRequest):
-            continue
-        path = c.__path__
-        method = c.__method__
-        app.router.add_route(method, path, c.go)
-"""
