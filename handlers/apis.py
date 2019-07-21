@@ -1,5 +1,5 @@
 from .base import BaseRequest, aroute
-from model import UserModel, md5
+from model import UserModel, ArticleModel, CommentModel, md5
 from others import get_token
 from aiohttp import web
 from others import tokens
@@ -10,6 +10,7 @@ class Api(BaseRequest):
     mapping = {
         'login':'login',
         'back':'back',
+        'articles':'articles',
     }
     async def go(self, request):
         if request.method == 'GET':
@@ -43,6 +44,22 @@ class Api(BaseRequest):
         if request['token'] in tokens:
             tokens.pop(request['token'])
         return {}
+
+    async def articles(self, request, data):
+        nums = int(data.get('nums', 10))
+        index = int(data.get('index', -1))
+        user_id = data.get('user_id', '')
+        title = data.get('title', '')
+        art_query = request['session'].query(ArticleModel)
+        if title:
+            art_query = art_query.filter(ArticleModel.title.like("%"+str(title)+"%"))
+        if user_id:
+            art_query = art_query.filter(ArticleModel.writor_id == user_id)
+        if index == -1:
+            art_query = art_query.all()
+        else:
+            art_query = art_query.offset(index*(index+1)).limit(nums)
+        return [each.toString() for each in art_query]
 
 
 api = Api()

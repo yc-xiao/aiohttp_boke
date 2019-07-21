@@ -1,5 +1,4 @@
 from sqlalchemy.exc import IntegrityError
-from aiohttp_jinja2 import render_template
 from aiohttp import web
 
 from model import UserModel, get_unit_id, md5
@@ -9,12 +8,15 @@ from .base import routes
 async def index(request):
     return web.HTTPFound(location='index.html')
 
+@routes.get('/u/{id}')
+async def index(request):
+    uuser_id = request.match_info.get('id')
+    response = web.HTTPFound(location='/user.html')
+    response.set_cookie('uuser_id', uuser_id)
+    return response
+
 @routes.view('/user/')
 class User(web.View):
-    async def get(self):
-        print('find all')
-        return web.Response(text = 'index1')
-
     async def post(self):
         print('create user')
         data = await self.request.post()
@@ -45,8 +47,12 @@ class User(web.View):
 @routes.view('/user/{id}')
 class User(web.View):
     async def get(self):
-        userid = self.request.match_info.get('id')
-        return web.json_response(results.toString())
+        user_id = self.request.match_info.get('id')
+        session = self.request['session']
+        user = session.query(UserModel).filter_by(user_id=user_id).first()
+        if not user:
+            return web.HTTPInternalServerError(text="用户不存在!")
+        return web.json_response(user.toString())
 
     async def delete(self):
         print('delete')

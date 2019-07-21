@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册</title>
+    <link rel="stylesheet" href="css/register.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/base.js"></script>
+</head>
+
+<body>
+    <header></header>
+    <div class="dbox">
+        <!-- onsubmit 在form提交之前,实际的请求由ajax处理 -->
+        <form onsubmit="return false" method="post">
+            <table>
+                <tr>
+                    <td>用户名:</td>
+                    <td><input type="text" placeholder="用户名" name="name" value=""></td>
+                </tr>
+                <tr>
+                    <td>密码:</td>
+                    <td><input type="password" placeholder="密码" name="password" maxlength="16" value=""></td>
+                </tr>
+                <tr>
+                    <td>确认密码:</td>
+                    <td><input type="password" placeholder="确认密码"
+                        name="npassword" maxlength="16" value=""></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="注册" class="btn" id="register"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+<script src="js/register.js" charset="utf-8"></script>
+</html>
