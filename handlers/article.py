@@ -35,7 +35,6 @@ class Article(web.View):
 class Article(web.View):
     async def get(self):
         userid = self.request.match_info.get('id')
-        return 
         return web.json_response(results.toString())
 
     async def delete(self):

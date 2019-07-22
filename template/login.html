@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BOKE_LOGIN</title>
+    <link rel="stylesheet" href="/static/css/login.css">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/base.js"></script>
+    <script src="/static/js/login.js"></script>
+</head>
+<body>
+    <header id="common"></header>
+    <div class="dbox">
+        <h1>Welcome Boke</h1>
+        <form action="/api/login" method="post" onsubmit="return false">
+            <input type="text" class="login-input"
+            placeholder="username" name="name" id="login-name">
+            <input type="password"
+            class="login-input" placeholder="password" name="password" id="login-password">
+            <input type="submit"
+            class="login-sumbit" value="LOGIN" id="logon-submit">
+        </form>
+    </div>
+</body>
+</html>

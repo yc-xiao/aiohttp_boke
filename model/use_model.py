@@ -1,6 +1,7 @@
 """
-    提供数据库的CDUG功能
-    操作对象， 表名， 具体数据
+    TODO:
+        提供数据库的CDUG功能
+        操作对象， 表名， 具体数据
 """
 from .model import UserModel, ArticleModel, CommentModel
 

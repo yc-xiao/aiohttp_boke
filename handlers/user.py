@@ -1,18 +1,18 @@
 from sqlalchemy.exc import IntegrityError
 from aiohttp import web
-
+from aiohttp_jinja2 import template
 from model import UserModel, get_unit_id, md5
 from .base import routes
 
 @routes.get('/')
+@template('index.html')
 async def index(request):
-    return web.HTTPFound(location='index.html')
+    return
 
 @routes.get('/u/{id}')
+@template('user.html')
 async def index(request):
     uuser_id = request.match_info.get('id')
-    response = web.HTTPFound(location='/user.html')
-    response.set_cookie('uuser_id', uuser_id)
     return response
 
 @routes.view('/user/')

@@ -11,8 +11,7 @@ def init():
     set_routes(app)
     app.on_startup.append(_on_startup)
     app.on_shutdown.append(_on_shutdown)
-    web.run_app(app, **config, access_log=None)
-    #return app
+    return app
 
 async def main():
     logging.info('statr server in {host}:{port}'.format(**config))
@@ -21,5 +20,7 @@ async def main():
     site = web.TCPSite(runner, host='0.0.0.0', port=2333)
     await site.start()
 
+
 if __name__ == "__main__":
-    init()
+    app = init()
+    web.run_app(app, **config, access_log=None)

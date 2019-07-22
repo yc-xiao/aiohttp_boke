@@ -1,9 +1,12 @@
+from setting import ENGINE_PATH, COOKIE_KEY
+
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from aiohttp.web import middleware
 from time import time
+from random import randint
 
-from setting import ENGINE_PATH, COOKIE_KEY
+import hashlib
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -20,9 +23,6 @@ async def log_handler(request, handler):
     logging.info('start in middlerware')
     logging.info(str(request.url))
     request['session'] = Session()
-    token = request.cookies.get('token', False)
-    request['user_id'] = to_token(token)
-    request['token'] = token
     response = await handler(request)
     request['session'].close()
     logging.info('end out middlerware')
@@ -60,6 +60,26 @@ def to_token(token):
         return
     result = token.split('-')
     if time() - int(result[1]) > 0:
-        tokens.pop(token)
         return
     return result[0]
+
+tokens = {}
+def u_token(key, user_id):
+    return hashlib.md5((key + user_id + COOKIE_KEY).encode()).hexdigest()
+
+def user_token(user_id, expires=3600):
+    # user_id-key-token-expires
+    key = str(randint(1000,9999))
+    expires = str(expires + int(time()))
+    token = u_token(key, user_id)
+    tokens[user_id] = '_'.join([user_id, key, token, expires])
+    return tokens[user_id]
+
+def token_user(token):
+    if not token:
+        return
+    ts = token.split('_')
+    _token = tokens.get(ts[0])
+    if len(ts) == 4 and ts[2] == u_token(ts[1], ts[0]) and  time() - int(ts[-1]) < 0:
+            return True
+    tokens.pop(ts[0], None)

@@ -1,7 +1,7 @@
 $(function(){
     $("#logon-submit").on('click', onlogin);
     var uname = String(window.localStorage.uname);
-    if(uname != "undefined"){
+    if(uname != "undefined" || uname == ""){
         window.location.replace("index.html");
     }
 })

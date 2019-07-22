@@ -1,13 +1,17 @@
 from handlers.base import routes, BaseRequest
-from setting import STATIC_PATH
+from setting import STATIC_PATH, TEMPLATE_PATH, BASE_PATH
 from importlib import import_module
+import aiohttp_jinja2
+import jinja2
 import os
 
 
 def set_routes(app):
+    aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader(TEMPLATE_PATH))
     set_route(app)
     app.add_routes(routes)
-    app.router.add_static('/', STATIC_PATH)
+    app.router.add_static('/static', STATIC_PATH)
+    app.router.add_static('/', TEMPLATE_PATH)
 
 
 def set_route(app):
