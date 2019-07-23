@@ -6,13 +6,14 @@ html {
     height: 100%;
 }
 body {
-    min-width: 800px;
+    min-width: 1000px;
     height: 100%;
     background-color: #dbce8f;
     /* background: linear-gradient(90deg,snow, pink); */
 }
 a {
     text-decoration: none;
+    color:black;
 }
 .nav {
     position: relative;

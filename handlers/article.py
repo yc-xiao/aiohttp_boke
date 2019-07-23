@@ -30,18 +30,40 @@ class Article(web.View):
         return web.Response(text="新增成功")
 
     async def put(self):
-        pdb.set_trace()
-        print('修改一条数据')
+        user_id = self.request['user_id']
+        if not user_id:
+            raise web.HTTPForbidden(text="当前用户未登陆")
         data = await self.request.post()
-        return web.Response(text = 'index1')
-        #    return web.json_response({"name":"helloc"})
+        if(user_id != data.get("user_id")):
+            raise web.HTTPInternalServerError(text="更新失败!")
+        title = data.get("title")
+        content = data.get("content")
+        description = data.get("description")
+        article_id = data.get("article_id")
+        session = self.request["session"]
+        article = session.query(ArticleModel).filter_by(article_id = article_id).first()
+        if not article:
+            raise web.HTTPInternalServerError(text="文章不存在!")
+        article.title = title
+        article.description = description
+        article.content = content
+        session.commit()
+        return web.HTTPOk(text="文章更新成功!")
 
 @routes.view('/article/{id}')
 class Article(web.View):
     async def get(self):
-        userid = self.request.match_info.get('id')
-        return web.json_response(results.toString())
+        article_id = self.request.match_info.get('id')
+        session = self.request["session"]
+        article = session.query(ArticleModel).filter_by(article_id=article_id).first()
+        if article:
+            return web.json_response(article.toString())
+        else:
+            return web.HTTPInternalServerError(text="文章不存在!")
 
     async def delete(self):
-        print('delete')
-        return web.Response(text = 'index1')
+        article_id = self.request.match_info.get('id')
+        session = self.request["session"]
+        article = session.query(ArticleModel).filter_by(article_id=article_id).delete()
+        session.commit()
+        return web.HTTPOk(text="文章删除成功!")

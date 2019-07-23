@@ -31,7 +31,7 @@ function dlbox_func(){
     inputs.eq(4).css('display', block2);
 
     var path = window.location.pathname;
-    if(path.match('(/u/(\\d+))|user.html|index.html')){
+    if(path.match('(/u/)|user.html|index.html')){
         $('#ssbox').css('display', 'inline');
     }else{
         $('#ssbox').css('display', 'none');
@@ -88,29 +88,30 @@ function search(data){
         dbox.empty();
         for(let key in articles){
             let  text = "<div class='abox'>\
-                <h3><a href=''>%title%</a></h3><p>%description%</p>\
+                <h3><a href='%title_url%' >%title%</a></h3><p>%description%</p>\
                 <div>\
-                    <span>作者:</span>\
-                    <span>%writor%</span>&nbsp&nbsp&nbsp&nbsp\
+                    <span>作者:&nbsp&nbsp</span>\
+                    <a href='%writor_url%'>%writor%</a>&nbsp&nbsp&nbsp&nbsp\
                     <span>时间:</span>\
                     <span>%created%</span>\
                 </div>\
             </div>";
             let art = articles[key];
             art['created'] = get_local_time(art['created']);
+            art['title_url'] = '/a/' + art['article_id'];
+            art['writor_url'] = '/u/' + art['writor_id'];
             for(let e in art){
                 let temp = "%" + String(e) + "%";
                 text = text.replace(temp, art[e]);
             }
             dbox.append(text);
         }
-        console.log(articles);
     })
 }
 
 
 function get_page_user_id(){
-    var user_id = '1';
+    var user_id = '';
     var path = window.location.pathname;
     if(path == '/user.html'){
         var uuser_id = window.localStorage.uuser_id;

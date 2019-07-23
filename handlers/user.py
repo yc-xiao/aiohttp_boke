@@ -1,21 +1,10 @@
 from sqlalchemy.exc import IntegrityError
-from aiohttp_jinja2 import template
 from aiohttp import web
 from time import time
 
 from model import UserModel, get_unit_id, md5
 from .base import routes
 
-@routes.get('/')
-@template('index.html')
-async def index(request):
-    return
-
-@routes.get('/u/{id}')
-@template('user.html')
-async def index(request):
-    uuser_id = request.match_info.get('id')
-    return
 
 @routes.view('/user/')
 class User(web.View):
@@ -43,11 +32,8 @@ class User(web.View):
         return web.Response(text="注册成功")
 
     async def put(self):
-        pdb.set_trace()
-        print('修改一条数据')
-        data = await self.request.post()
-        return web.Response(text = 'index1')
-        #    return web.json_response({"name":"helloc"})
+        # TODO:
+        pass
 
 @routes.view('/user/{id}')
 class User(web.View):
@@ -61,4 +47,5 @@ class User(web.View):
 
     async def delete(self):
         print('delete')
-        return web.Response(text = 'index1')
+        # TODO:
+        pass
