@@ -110,7 +110,7 @@ function search(data){
 
 
 function get_page_user_id(){
-    var user_id = '';
+    var user_id = '1';
     var path = window.location.pathname;
     if(path == '/user.html'){
         var uuser_id = window.localStorage.uuser_id;
@@ -119,9 +119,9 @@ function get_page_user_id(){
         }
     }
     else{
-        var path = path.match('/u/(\\d+)');
-        if(path){
-            user_id = path[1];
+        var path = path.replace('/u/','');
+        if(path.length == 32){
+            user_id = path;
         }
     }
     return user_id
