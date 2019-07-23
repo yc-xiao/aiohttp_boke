@@ -1,7 +1,7 @@
 $(function(){
     var uname = String(window.localStorage.uname);
     if(uname != "undefined" || uname == ""){
-        window.location.replace("index.html");
+        window.location.replace("/index.html");
     }
 })
 

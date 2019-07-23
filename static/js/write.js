@@ -16,7 +16,7 @@ function is_cur_user(){
     if(path == '/write.html'){
         var uname = String(window.localStorage.uname);
         if(uname == "undefined" || uname == ""){
-            window.location.replace("login.html");
+            window.location.replace("/login.html");
         }
         md_data.is_writor = true;
     }
@@ -77,7 +77,7 @@ function send(){
     })
     .done(function(data) {
         alert('提交成功');
-        window.location.replace("index.html");
+        window.location.replace("/index.html");
     })
     .fail(function(err) {
         alert(err.responseText);
@@ -87,7 +87,7 @@ function send(){
 function get_ariticle(article_id){
     var article;
     if(article_id.length != 32){
-        window.location.replace("index.html");
+        window.location.replace("/index.html");
     }
     $.ajax({
         url: '/article/' + article_id,
@@ -101,7 +101,7 @@ function get_ariticle(article_id){
     })
     .fail(function(res) {
         console.log("error");
-        window.location.replace("index.html");
+        window.location.replace("/index.html");
     });
     return article
 }

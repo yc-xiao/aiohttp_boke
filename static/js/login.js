@@ -2,7 +2,7 @@ $(function(){
     $("#logon-submit").on('click', onlogin);
     var uname = String(window.localStorage.uname);
     if(uname != "undefined" || uname == ""){
-        window.location.replace("index.html");
+        window.location.replace("/index.html");
     }
 })
 //点击事件
@@ -28,7 +28,7 @@ function send(data){
         // dataType: 'json',
         success: function (data) {
             window.localStorage.uname = data.name;
-            window.location.replace("index.html");
+            window.location.replace("/index.html");
         },
         error: function (err) {
             alert(err.responseText);
