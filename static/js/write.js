@@ -19,10 +19,11 @@ function md_load(){
         toolbarIcons: function() {
             return ["undo", "redo", "|", "bold", "hr", "|", "h1", "code", "reference", "||", "watch", "fullscreen", "preview", "saveIcon", "info"]
         },
+        watch: false,
         // previewTheme : "3024-day",
         editorTheme: "3024-day",
         syncScrolling: "single",
-        path: "lib/", //注意2：你的路径
+        path: "/static/lib/", //注意2：你的路径
         saveHTMLToTextarea: true, //注意3：这个配置，方便post提交表单
         toolbarIconTexts: {
             saveIcon: "上传" // 如果没有图标，则可以这样直接插入内容，可以是字符串或HTML标签
@@ -44,8 +45,11 @@ function send(){
 
     var data = {
         "title": title,
-        "content": $('#my-editormd-markdown-doc').val().trim()
+        "description": $('#description').val().trim(),
+        "content": $('#my-editormd-markdown-doc').val().trim(),
+        "writor": window.localStorage.uname
     };
+    console.log(data);
     $.ajax({
         url: '/article',
         type: 'post',
@@ -53,7 +57,7 @@ function send(){
     })
     .done(function(data) {
         alert('提交成功');
-        console.log(data);
+        window.location.replace("index.html");
     })
     .fail(function(err) {
         alert(err.responseText);

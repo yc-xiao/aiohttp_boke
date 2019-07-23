@@ -22,6 +22,8 @@ tokens = {}
 async def log_handler(request, handler):
     logging.info('start in middlerware')
     logging.info(str(request.url))
+    token = request.cookies.get('token')
+    request['user_id'] = token_user(token)
     request['session'] = Session()
     response = await handler(request)
     request['session'].close()
@@ -80,6 +82,6 @@ def token_user(token):
         return
     ts = token.split('_')
     _token = tokens.get(ts[0])
-    if len(ts) == 4 and ts[2] == u_token(ts[1], ts[0]) and  time() - int(ts[-1]) < 0:
-            return True
+    if _token and len(ts) == 4 and ts[2] == u_token(ts[1], ts[0]) and  time() - int(ts[-1]) < 0:
+            return ts[0]
     tokens.pop(ts[0], None)

@@ -10,7 +10,7 @@ def set_routes(app):
     aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader(TEMPLATE_PATH))
     set_route(app)
     app.add_routes(routes)
-    app.router.add_static('/static', STATIC_PATH)
+    app.router.add_static('/static/', STATIC_PATH)
     app.router.add_static('/', TEMPLATE_PATH)
 
 

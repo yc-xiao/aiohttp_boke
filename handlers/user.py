@@ -1,6 +1,8 @@
 from sqlalchemy.exc import IntegrityError
-from aiohttp import web
 from aiohttp_jinja2 import template
+from aiohttp import web
+from time import time
+
 from model import UserModel, get_unit_id, md5
 from .base import routes
 
@@ -13,7 +15,7 @@ async def index(request):
 @template('user.html')
 async def index(request):
     uuser_id = request.match_info.get('id')
-    return response
+    return
 
 @routes.view('/user/')
 class User(web.View):
@@ -23,8 +25,11 @@ class User(web.View):
         user_id = get_unit_id()
         name = data.get("name")
         password = data.get("password")
+        image_ur = data.get("image_ur", "/static/uimages/ddm.jpg")
+        description = data.get("description", "这个人很懒，什么都没有留下")
         session = self.request["session"]
-        new_user = UserModel(user_id=user_id, name=name, password=md5(password))
+        new_user = UserModel(user_id=user_id, name=name, password=md5(password), created=str(int(time())), image_url=image_ur,
+        description=description)
         try:
             session.add(new_user)
             session.commit()

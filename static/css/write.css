@@ -1,10 +1,8 @@
-
 .ebox{
     text-align: center;
     margin: auto;
     width: 80%;
 }
 .ebox input:nth-of-type(2){
-    float: right;
-    width: 50px;
+    width: 800px;
 }

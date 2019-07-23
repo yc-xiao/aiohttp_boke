@@ -1,5 +1,6 @@
 from sqlalchemy.exc import IntegrityError
 from aiohttp import web
+from time import time
 
 from model import ArticleModel, get_unit_id, md5
 from .base import routes
@@ -15,8 +16,12 @@ class Article(web.View):
         article_id = get_unit_id()
         title = data.get("title")
         content = data.get("content")
+        description = data.get("description")
+        writor = data.get("writor")
+
         session = self.request["session"]
-        new_article = ArticleModel(article_id=article_id, writor_id=writor_id, title=title, content=content)
+        new_article = ArticleModel(article_id=article_id, writor_id=writor_id, title=title, content=content, description=description, created=str(int(time())),
+        writor=writor)
         try:
             session.add(new_article)
             session.commit()

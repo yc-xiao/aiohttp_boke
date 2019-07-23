@@ -52,10 +52,9 @@ class Api(BaseRequest):
     async def is_login(self, request, data):
         user = {}
         token = request.cookies.get('token')
-        if token_user(token):
-            user_id = token.split('_')[0]
+        if request['user_id']:
             session = request.get('session')
-            user = session.query(UserModel).filter_by(user_id=user_id).first()
+            user = session.query(UserModel).filter_by(user_id=request['user_id']).first()
         return user if not user else user.toString()
 
     async def articles(self, request, data):
@@ -73,7 +72,7 @@ class Api(BaseRequest):
             art_query = art_query.all()
         else:
             art_query = art_query.offset(index * (index + 1)).limit(nums)
-        return [each.toString() for each in art_query]
+        return {each.article_id: each.toString() for each in art_query}
 
 
 api = Api()
