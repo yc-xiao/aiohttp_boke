@@ -63,6 +63,7 @@ function onback(){
         document.cookie = "token=''";
         window.localStorage.uname = '';
         window.localStorage.uuser_id = '';
+        window.location.replace("/index.html");
     })
 }
 
