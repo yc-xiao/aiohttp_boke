@@ -4,7 +4,7 @@ from setting import config
 from aiohttp import web
 import asyncio
 
-
+# test
 def init():
     logging.info('statr server in {host}:{port}'.format(**config))
     app = web.Application(middlewares=[log_handler,])
